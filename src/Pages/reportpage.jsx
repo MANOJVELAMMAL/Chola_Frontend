@@ -45,28 +45,14 @@ import {
   Search as SearchIcon,
   Clear as ClearIcon,
   BarChart as BarChartIcon,
-  ShowChart as LineChartIcon,
-  ScatterPlot as ScatterIcon,
-  AreaChart as AreaChartIcon,
-  Whatshot as HeatmapIcon,
   Delete as DeleteIcon,
   Note as NoteIcon,
   Visibility as ViewIcon,
-  FileDownload as ExportIcon,
-  FileUpload as ImportIcon,
   GridView as GridIcon,
   TableRows as TableIcon,
   Dashboard as DashboardIcon,
 } from '@mui/icons-material';
 
-/* ===========
-  Overview:
-  - Searchable filters (Autocomplete)
-  - Add Report modal with ability to add new categories + tags
-  - Import menu anchored to left of screen
-  - Reusable multi-select chip UI
-  - Optimized with useMemo/useCallback/React.memo
-  =========== */
 
 // small reusable truncation helper
 const truncate = (s = '', n = 8) => (s.length <= n ? s : s.slice(0, n) + '..');
@@ -74,12 +60,6 @@ const truncate = (s = '', n = 8) => (s.length <= n ? s : s.slice(0, n) + '..');
 // Filter options filter helper
 const filterOptions = createFilterOptions();
 
-/* -------------------------
-   Reusable MultiSelect (Autocomplete-based)
-   Props:
-     - label, options (array), value(array), onChange(fn), chipColor
-     - freeSolo: allow custom values
- ------------------------- */
 const MultiSelect = React.memo(function MultiSelect({
   label,
   options,
@@ -863,7 +843,6 @@ const AddReportModal = ({
               justifyContent: "center",
               cursor: "pointer"
             }}
-            onClick={() => document.getElementById("fileUpload").click()}
           >
             <CloudUploadIcon sx={{ fontSize: 42, color: "#1976d2", mb: 1 }} />
             <Typography variant="body2" sx={{ color: "#1976d2" }}>
@@ -1033,10 +1012,6 @@ const ReportPage = () => {
   // notes
   const [reportNotes, setReportNotes] = useState({});
   const [currentNote, setCurrentNote] = useState({ reportId: null, content: '' });
-
-
-  // file input ref
-  const fileInputRef = useRef(null);
 
   // snack/loader
   const [loading, setLoading] = useState(false);
@@ -1245,9 +1220,6 @@ const ReportPage = () => {
     }
   }, []); // run once
 
-  // open import menu on left
-  const openImportLeft = useCallback(() => setImportMenuOpen(true), []);
-  const closeImportLeft = useCallback(() => setImportMenuOpen(false), []);
 
   return (
     <>
@@ -1273,19 +1245,6 @@ const ReportPage = () => {
                 }}
               />
             </Box>
-
-            <Tooltip title="Import Data ">
-              <IconButton color="inherit" onClick={openImportLeft} sx={{ ml: 1 }}>
-                <ImportIcon />
-              </IconButton>
-            </Tooltip>
-
-            <Tooltip title="Export Data">
-              <IconButton color="inherit" onClick={(e) => setExportAnchor(e.currentTarget)} sx={{ ml: 1 }}>
-                <ExportIcon />
-              </IconButton>
-            </Tooltip>
-
             <Button variant="contained" startIcon={<AddIcon />} onClick={() => setShowAddReport(true)} sx={{ ml: 2 }}>
               Add Report
             </Button>

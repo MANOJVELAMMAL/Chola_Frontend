@@ -10,39 +10,28 @@ import {
   Divider,
   Box,
   Typography,
-  Collapse,
 } from "@mui/material";
 import {
   Menu,
   BarChart,
-  Settings,
   Logout,
   Dashboard,
-  ExpandLess,
-  ExpandMore,
-  Security,
   Insights,
-  Notifications,
-  AccountCircle,
 } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(true);
-  const [settingsOpen, setSettingsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const toggleSidebar = () => setOpen(!open);
-  const toggleSettings = () => setSettingsOpen(!settingsOpen);
 
   const mainMenuItems = [
     { text: "Dashboard", icon: <Dashboard />, path: "/dashboard" },
     { text: "Reports", icon: <BarChart />, path: "/reports" },
     { text: "Charts", icon: < Insights/>, path: "/charts" },
   ];
-
-
 
   const isActivePath = (path) => {
     return location.pathname === path || location.pathname.startsWith(path + '/');
